@@ -2,8 +2,8 @@
 
 
 
-// pos is position of where the user in the test or which question they're up to
-var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0, incorrect = 1;
+// positioning is position of where the user is within the test or which question they're up to on the test itself.
+var positioning = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0, incorrect = 1;
 
 
 // this is a multidimensional array divided as such:
@@ -32,10 +32,10 @@ var questions = [
         answer: "C"
     },
     {
-        question: "What are the basic elements of a webpage?",
-        a: "HTML, CSS, JavaScript",
-        b: "Fire, wind, water",
-        c: "Magnesium, Chromium, Iron",
+        question: "How do you add/append something to its parent element?",
+        a: "appendChild",
+        b: "addMydaughter",
+        c: "additionTime",
         answer: "A"
     }
 ];
@@ -46,40 +46,45 @@ var questions = [
 function get(x) {
     return document.getElementById(x);
 }
+
 // this function provides a question to display on the page
 function renderQuestion() {
     test = get("test");
+
     // this will display the number of questions correctly chosen
-    if (pos >= questions.length) {
-        test.innerHTML = "<h2>You got " + correct + " of " + questions.length + " questions correct</h2>";
+    if (positioning >= questions.length) {
+        test.innerHTML = "<h2>You got " + correct + " of " + questions.length + " questions correct!!</h2>";
         get("test_status").innerHTML = "All finished!";
 
         // resets the variable to allow users to restart the test
-        pos = 0;
+        positioning = 0;
         correct = 0;
 
         // stops rest of renderQuestion function running when test is completed
         return false;
     }
-    get("test_status").innerHTML = "Question " + (pos + 1) + " of " + questions.length;
+    // shows the status of where user is in questions, adds 1 to position when answered
+    get("test_status").innerHTML = "Question " + (positioning + 1) + " of " + questions.length;
 
-    question = questions[pos].question;
-    chA = questions[pos].a;
-    chB = questions[pos].b;
-    chC = questions[pos].c;
+    // Defining variables for choices and appending data
+    var question = questions[positioning].question;
+    var chA = questions[positioning].a;
+    var chB = questions[positioning].b;
+    var chC = questions[positioning].c;
 
     // display the question
     test.innerHTML = "<h3>" + question + "</h3>";
 
     // display the answer options
-    // the += appends to the data we started on the line above
+    // the += appends to the data that was created on the line above
     test.innerHTML += "<label> <input type='radio' name='choices' value='A'> " + chA + "</label><br>";
     test.innerHTML += "<label> <input type='radio' name='choices' value='B'> " + chB + "</label><br>";
     test.innerHTML += "<label> <input type='radio' name='choices' value='C'> " + chC + "</label><br><br>";
     test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
 }
+
 function checkAnswer() {
-    // use getElementsByName because we have an array which it will loop through
+    // use getElementsByName to loop through the previously created array for choices
     choices = document.getElementsByName("choices");
     for (var i = 0; i < choices.length; i++) {
         if (choices[i].checked) {
@@ -87,7 +92,7 @@ function checkAnswer() {
         }
     }
     // checks if answer matches the correct choice
-    if (choice == questions[pos].answer) {
+    if (choice == questions[positioning].answer) {
         //each time there is a correct answer this value increases
         correct++;
         // creates an alert to show you are correct
@@ -95,7 +100,7 @@ function checkAnswer() {
 
     }
 
-    if (choice !== questions[pos].answer) {
+    if (choice !== questions[positioning].answer) {
         //each time there is an incorrect answer this value increases
         incorrect++;
         // creates an alert to show you are incorrect
@@ -104,7 +109,7 @@ function checkAnswer() {
     }
 
     // changes position of which character user is on
-    pos++;
+    positioning++;
     // then the renderQuestion function runs again to go to next question
     renderQuestion();
 }
@@ -112,53 +117,3 @@ function checkAnswer() {
 window.addEventListener("load", renderQuestion);
 
 
-
-
-
-
-
-
-
-
-// var startBtn = document.querySelector("#start-quiz");
-// var timerEl = document.querySelector("timer");
-// var startView = document.querySelector("#start-view");
-// var questionView = document.querySelector("#quiz-view");
-
-// var counter = 60;
-// var timerInterval = 0;
-
-// function startQuiz() {
-//     // remove the start button or hide it 
-//     startView.getElementsByClassName.display = "none";
-//     questionView.getElementsByClassName.display = "block";
-
-//     timerInterval = setInterval(function () {
-//         counter--;
-//         if (counter >= 0) {
-//             timerEl.innerHTML = counter;
-
-//         }   else if (counter < 0) {
-//             clearInterval(timerInterval);
-//             timerEl.innerHTML = counter + 61;
-//             counter = 60;
-//         }
-//     }, 1000)
-
-
-// };
-
-// function handleAnswer() {
-//     //if last question is reached
-//     //then stop the timer
-//     clearInterval(timerInterval)
-// };
-
-// function setCounterText() {
-//     var countEl = document.querySelector("correct-answer")
-//     countEl.textContent = count;
-// }
-// startBtn.addEventListener("click", startQuiz() {
-//     count++;
-//     setCounterText
-// });
