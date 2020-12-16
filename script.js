@@ -1,14 +1,12 @@
-// Define question variables
-
-
-
-// positioning is position of where the user is within the test or which question they're up to on the test itself.
 var positioning = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0, incorrect = 1;
+var count = 60;
+var timeInterval;
 
+// create variable for the start button and #time
+var timeEl = document.querySelector("#time");
+var startButtonEl = document.querySelector("#start");
+var resetButtonEl = document.querySelector("#reset");
 
-// this is a multidimensional array divided as such:
-//  4 inner array elements (each question divided here)
-//  5 elements inside each array (question, a, b, c, answer)
 var questions = [
     {
         question: "What is the order of Bootstrap CDN Structure?",
@@ -40,20 +38,13 @@ var questions = [
     }
 ];
 
-
-
-// Creating a function here to display the questions, this get function is an abbreviated getElementById function  
-function get(x) {
-    return document.getElementById(x);
-}
-
-// this function provides a question to display on the page
 function renderQuestion() {
     test = get("test");
 
+
     // this will display the number of questions correctly chosen
     if (positioning >= questions.length) {
-        test.innerHTML = "<h2>You got " + correct + " of " + questions.length + " questions correct!!</h2>";
+        test.innerHTML = "You got " + correct + " of " + questions.length + " questions correct!!";
         get("test_status").innerHTML = "All finished!";
 
         // resets the variable to allow users to restart the test
@@ -83,7 +74,10 @@ function renderQuestion() {
     test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
 }
 
+
+
 function checkAnswer() {
+
     // use getElementsByName to loop through the previously created array for choices
     choices = document.getElementsByName("choices");
     for (var i = 0; i < choices.length; i++) {
@@ -95,18 +89,21 @@ function checkAnswer() {
     if (choice == questions[positioning].answer) {
         //each time there is a correct answer this value increases
         correct++;
+        count = count + 5;
         // creates an alert to show you are correct
         alert("That is correct!!");
 
     }
 
-    if (choice !== questions[positioning].answer) {
+    else if (choice !== questions[positioning].answer) {
         //each time there is an incorrect answer this value increases
         incorrect++;
+        count = count -15;
         // creates an alert to show you are incorrect
         alert("Do a bit more studying please... PLEASE!");
 
     }
+
 
     // changes position of which character user is on
     positioning++;
@@ -114,6 +111,40 @@ function checkAnswer() {
     renderQuestion();
 }
 // Add event listener to call renderQuestion on page load event
+
 window.addEventListener("load", renderQuestion);
+
+function start() {
+    count = 60;
+    timeEl.textContent = count;
+
+    countdownTimerId = setInterval(function () {
+        if (count === 0) {
+            clearInterval(countdownTimerId);
+            alert("Out of Time!!");
+        } else {
+            count = count - 1;
+            timeEl.textContent = count;
+        }
+    }, 1000);
+}
+
+function reset() {
+    count = 60;
+    timeEl.textContent = "00";
+    clearInterval(countdownTimerId);
+}
+
+function get(x) {
+    return document.getElementById(x);
+}
+
+
+
+// when the user clicks start
+startButtonEl.addEventListener("click", start);
+resetButtonEl.addEventListener("click", reset);
+
+
 
 

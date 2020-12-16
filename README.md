@@ -3,6 +3,8 @@ This is a multiple choice quiz that has variables defined inquiring on Web APIs,
 
 The quiz follows rules and semantics to be optimized in any browser and device.
 
+Taking the code quiz, the user selects an option from the array of choices. The timer starts upon entering the page, and the semantics for answering questions and receiving penalties/etc. are set up accordingly.
+
 GIVEN I am taking a code quiz
 WHEN I click the start button
 THEN a timer starts and I am presented with a question
@@ -13,4 +15,4 @@ THEN time is subtracted from the clock
 WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
-THEN I can save my initials and score
+THEN the score is listed for number of correct answers.
