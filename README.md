@@ -1,5 +1,7 @@
 # Portfolio-Web-API-Quiz
-This is a multiple choice quiz that has variables defined inquiring on Web APIs, giving results based on options picked within the site. The quiz has a timer, and will list if you are correct and incorrect for each question. 
+This is a multiple choice quiz that has variables defined inquiring on Web APIs, giving results based on options picked within the site. The variables are defined to record responses based on the anwers given within the multiple choice test. The quiz has a timer, and will list if you are correct and incorrect for each question. It will also subtract 15 seconds for incorrect answers, and add 5 for correct ones. 
+
+There is commentary within the code defining each of the objectives for the code listed.
 
 The quiz follows rules and semantics to be optimized in any browser and device.
 
