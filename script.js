@@ -114,6 +114,7 @@ function checkAnswer() {
 
 window.addEventListener("load", renderQuestion);
 
+// start function will define the button pressed for the timer, counting down from 60 to 0
 function start() {
     count = 60;
     timeEl.textContent = count;
@@ -128,7 +129,7 @@ function start() {
         }
     }, 1000);
 }
-
+ // reset function clears and resets the timer
 function reset() {
     count = 60;
     timeEl.textContent = "00";

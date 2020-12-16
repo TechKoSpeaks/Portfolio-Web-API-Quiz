@@ -18,3 +18,8 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN the score is listed for number of correct answers.
+
+Deployed Application: https://techkospeaks.github.io/Portfolio-Web-API-Quiz/ 
+Github Page: https://github.com/TechKoSpeaks/Portfolio-Web-API-Quiz.git
+
+img src="deployed-Web-API-Quiz.png"
